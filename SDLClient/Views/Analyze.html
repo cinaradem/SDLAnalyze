@@ -1,0 +1,109 @@
+<div class="leftrightjustify " ng-controller="AnalysisController as ctrl">
+    <div class="row">
+        <div class="row-same-height row-full-height">
+            <div class="col-lg-5 col-lg-height col-full-height">
+                <form name="cloneForm" class="form-inline" ng-submit="cloneForm.$valid && ctrl.cloneRepository()" novalidate>
+                    <div class="form-group">
+                        <label>Clone Uri :</label>
+                        <input class="ng-pristine ng-valid form-control" type="text" name="cloneUri" ng-model="ctrl.gitUrl" placeholder="Enter the GitHub repository url" required>
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-default" value="Clone Git" required />
+                </form>
+
+                <div ng-repeat="cloneDetails in ctrl.analysisStateMgr.cloneInProgress track by $index">
+                    <div class="cloneDetails">
+                        <div class="cloneUri" uib-tooltip="Git Uri : {{cloneDetails.uri}}" tooltip-placement="top" tooltip-popup-close-delay="200">{{cloneDetails.uri}}</div>
+                        <div class="view_port">
+                            <div class="polling_message">
+                                {{ctrl.cloneMessages[cloneDetails.status]}}
+                            </div>
+                            <div ng-if="cloneDetails.status == 0" class="progressInd"></div>
+                            <div ng-if="cloneDetails.status == 1" class="successInd"></div>
+                            <div ng-if="cloneDetails.status == 2" class="errorInd"></div>
+                        </div>
+                        <a class="btn btn-log" ng-disabled="cloneDetails.status == 0" href={{cloneDetails.logFD.link}} 
+                           target="_self" uib-tooltip="{{cloneDetails.logFD.name}}"
+                            tooltip-placement="top" tooltip-popup-close-delay="200">Show log</a>
+                        <!-- Split button -->
+                        <div class="btn-group" uib-dropdown>
+                            <button id="split-button" type="button" ng-disabled="cloneDetails.status != 1 || ctrl.noSlnSelected($index)"
+                                    class="btn btn-build" ng-click="ctrl.buildSoln($index)">
+                                Build
+                            </button>
+                            <button type="button" class="btn btn-build" ng-disabled="cloneDetails.status != 1" uib-dropdown-toggle>
+                                <span class="caret"></span>
+                                <span class="sr-only">Split button!</span>
+                            </button>
+                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="split-button" ng-click="$event.stopPropagation();" auto-close="disabled">
+                                <li ng-repeat="sln in cloneDetails.clonedSolutions track by $index">
+                                    <div class="checkbox">
+                                        <label class="checklabel">
+                                            <input type="checkbox" ng-model="sln.build">
+                                            {{sln.slnFile}}
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-lg-height col-full-height">
+                <uib-accordion ng-show="ctrl.analysisStateMgr.builds.length > 0">
+                    <div uib-accordion-group class="panel-default" heading="Builds in Progress" is-open="ctrl.analysisStateMgr.builds.length > 0">
+                        <div ng-repeat="build in ctrl.analysisStateMgr.builds track by $index">
+                            <div class="bldProgress">
+                                <div class="bldName">{{build.slnFile}}</div>
+                                <div class="smallWait" ng-if="build.inProgress"></div>
+                                <input type="button" ng-if="!build.inProgress" ng-click="ctrl.analyze($index)" class="btn btn-primary btn-default btn-analyze" value="Run FxCop" />
+                                <a class="btn btn-log btn-build-log" ng-if="!build.inProgress" href={{build.logFD.link}}
+                                   target="_self" uib-tooltip="{{build.logFD.name}}"
+                                   tooltip-placement="top" tooltip-popup-close-delay="200">Show log</a>
+                            </div>
+                        </div>
+                    </div>
+                </uib-accordion>
+            </div>
+        </div>
+    </div>
+    <!--<div ng-repeat="sln in ctrl.clonedSolutions">
+        <div class="analyze-container" ng-show="ctrl.currentPage == $index + 2">
+            <div id="assembly">{{sln}}</div>
+
+            <div class="page-content" id="resizeParent">
+                <resizable resize-container>
+                    <div class="sidebar-left slnContent" id="buildCtr">
+                        <input type="button" ng-click="ctrl.buildSoln($index)" class="btn btn-primary btn-default" value="Build Solution" required />
+                        <article>
+                            <div ng-repeat="msg in ctrl.buildMessages track by $index">{{msg}}</div>
+                        </article>
+                    </div>
+                </resizable>
+
+
+                <div class="content-container" id="analysisCtr">
+                    <input type="button" ng-click="ctrl.analyze($index)" class="btn btn-primary btn-default" value="Run Analysis" required />
+                    <article class="main-content">
+                        <div ng-repeat="outs in ctrl.outputCollection">
+                            <div ng-if="outs.messages.length">
+                                <div id="assembly">Assembly Name : {{outs.assembly}}</div>
+                                <table>
+                                    <tr>
+                                        <th ng-repeat="header in ctrl.outputHeaders" ng-click="ctrl.sortColumn = ctrl.outputHeaders[$index]">
+                                            {{header}}
+                                        </th>
+                                    </tr>
+                                    <tr ng-repeat="x in outs.messages  | orderBy : ctrl.sortColumn">
+                                        <td ng-repeat="val in x">
+                                            <div>{{val}}</div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>

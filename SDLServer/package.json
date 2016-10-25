@@ -1,0 +1,35 @@
+{
+  "name": "sdlprocessor",
+  "version": "1.0.0",
+  "description": "The server for running SDL tools for a project",
+  "main": "src/dist/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-debug": "^2.0.1",
+    "gulp-inject": "^1.2.0",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-tslint": "^1.4.4",
+    "gulp-typescript": "^2.5.0",
+    "gulp-uglify": "^2.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "del": "^2.2.1",
+    "express": "^4.14.0",
+    "express-jwt": "^5.0.0",
+    "graceful-fs": ">=4.0.0",
+    "jsonwebtoken": "^7.1.9",
+    "lodash": ">=4.0.0",
+    "mime": "^1.3.4",
+    "minimatch": ">=3.0.2",
+    "mongodb": "^2.2.9",
+    "q": "^1.4.1",
+    "socket.io": "0.9.13",
+    "typings": "^1.3.2"
+  }
+}

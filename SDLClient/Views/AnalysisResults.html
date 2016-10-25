@@ -1,0 +1,19 @@
+﻿<div class="leftrightjustify " ng-controller="AnalysisResultsController as ctrl">
+    <div ng-repeat="outs in ctrl.analysisStateMgr.outputCollection">
+        <div ng-if="outs.messages.length">
+            <div id="assembly">Assembly Name : {{outs.assembly}}</div>
+            <table>
+                <tr>
+                    <th ng-repeat="header in ctrl.analysisStateMgr.outputHeaders" ng-click="ctrl.sortColumn = ctrl.analysisStateMgr.outputHeaders[$index]">
+                        {{header}}
+                    </th>
+                </tr>
+                <tr ng-repeat="x in outs.messages  | orderBy : ctrl.sortColumn">
+                    <td ng-repeat="val in x">
+                        <div>{{val}}</div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

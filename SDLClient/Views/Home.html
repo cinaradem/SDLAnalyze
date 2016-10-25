@@ -1,0 +1,11 @@
+<div class="container" ng-controller="HomeController as ctrl">
+    <div ng-show="ctrl.analyzedItems.length > 0">{{ctrl.controllerName}}</div>
+    <div class="homeMsg" ng-hide="ctrl.analyzedItems.length > 0">
+        <h1>How to start a new SDL Analysis</h1>
+        <p>This message is appearing because you haven't done any analysis using this site before.</p>
+        <p>Clicking the button below will start a new analysis workflow.</p>
+        <p>
+            <a class="btn btn-lg btn-primary" ui-sref="analyze" role="button">Start new analysis &raquo;</a>
+        </p>
+    </div>
+</div>

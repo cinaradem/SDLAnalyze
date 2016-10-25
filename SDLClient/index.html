@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html ng-csp>
+<head>
+    <meta charset=utf-8 />
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel="Shortcut Icon" type="image/ico" href="Content/image/favicon.ico">
+    <title>Code Analysis for your .Net source code.</title>
+    <script data-main="src/dist/main" src="bower_components/requirejs/require.js"></script>
+    <link href="bower_components/angular/angular-csp.css" rel="stylesheet" />
+    <link href="bower_components/jquery-ui/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="Content/main.css" rel="stylesheet" />
+</head>
+<body ng-controller="ClientController as ctrl" ng-cloak>
+    <div class="wait" ng-show="!ctrl.dataReady">
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top center">
+        <header class="top-header">
+            <div id="bigLogo"></div>
+            SDL Analyzer
+            <div class="pull-right user">
+                {{ctrl.user.displayName}}
+            </div>
+        </header>
+        <div class="navbar-inner">
+            <div class="center">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a ui-sref="home">Home</a></li>
+                        <li><a ui-sref="analyze">Analysis</a></li>
+                    </ul>
+                    <form name="searchForm" class="form-inline pull-right" ng-submit="searchForm.$valid && ctrl.search()" novalidate>
+                        <input class="form-control ng-pristine ng-valid" type="text" ng-model="ctrl.searchString" placeholder="Search" required>
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ui-view ng-class="ctrl.slide"></div>
+    <div class="navbar navbar-inverse navbar-fixed-bottom">
+        <footer>{{ctrl.message}}</footer>
+    </div>
+</body>
+</html>
